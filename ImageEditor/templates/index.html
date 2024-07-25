@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Editor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/image.css') }}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: cursive;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: teal;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-links a {
+            color: #fff;
+        }
+
+        /* LOGO */
+        .logo {
+            font-size: 32px;
+        }
+
+        .container {
+            padding-top: 100px;
+            width: 60%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Horizontal Line Container */
+        .edit-functions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping if content exceeds width */
+        }
+
+        /* Individual Form Styling */
+        .edit-functions form {
+            margin: 0 10px; /* Adjust spacing between forms */
+        }
+
+        /* Adjustments for small screens */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 80%;
+            }
+
+            .edit-functions form {
+                margin: 5px; /* Adjust spacing between forms for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <!-- LOGO -->
+        <div class="logo">EDITPIC.io</div>
+    </nav>
+    <div class="container">
+        
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <button type="submit">Upload Image</button>
+        </form>
+        {% if img_path %}
+            <img src="{{ url_for('static', filename='uploads/' ~ img_path.split('/')[-1]) }}" alt="Image">
+            <!-- Edit Functions Container -->
+            <div class="edit-functions">
+                <form method="POST" action="{{ url_for('brightness') }}">
+                    <div class="form-group">
+                        <label for="brightness">Brightness</label>
+                        <input type="range" id="brightness" name="brightness" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <button type="submit">Apply</button>
+                </form>
+
+                <form method="POST" action="{{ url_for('contrast') }}">
+                    <div class="form-group">
+                        <label for="contrast">contrast</label>
+                        <input type="range" id="contrast" name="contrast" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <button type="submit">Apply</button>
+                </form>
+                <form method="POST" action="{{ url_for('sharpness') }}">
+                    <div class="form-group">
+                        <label for="sharpness">sharpness</label>
+                        <input type="range" id="sharpness" name="sharpness" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <button type="submit">Apply</button>
+                </form>
+                <form method="POST" action="{{ url_for('color') }}">
+                    <div class="form-group">
+                        <label for="color">color</label>
+        
+                        <input type="range" id="color" name="color" min="0" max="2" step="0.1" value="{{ 34 }}">
+
+                    </div>
+                    <button type="submit">Apply</button>
+                </form>
+                <form method="POST" action="{{ url_for('rotate') }}">
+                    <div class="form-group">
+                        <label for="rotate">rotate</label>
+                        <input type="range" id="rotate" name="rotate" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <button type="submit">Apply</button>
+                </form>
+                <form method="POST" action="{{ url_for('blur') }}">
+                    <div class="form-group">
+                        <label for="blur">blur</label>
+                        <input type="range" id="blur" name="blur" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <button type="submit">Apply</button>
+                </form>
+                <form method="POST" action="{{ url_for('resize') }}">
+                    <div class="form-group">
+                        <label for="resize">resize</label>
+                        <input type="range" id="resize" name="resize" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <button type="submit">Apply</button>
+                </form>
+                <form method="POST" action="{{ url_for('crop') }}">
+                    <div class="form-group">
+                        <label for="crop">crop</label>
+                        <input type="range" id="crop" name="crop" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <button type="submit">Apply</button>
+                </form>
+            </div>
+
+        {% endif %}
+    </div>
+</body>
+</html> 
