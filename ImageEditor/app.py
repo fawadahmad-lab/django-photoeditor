@@ -83,4 +83,4 @@ def crop():
     return save_image(cropped_image , 'crop')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False,host='0.0.0.0')

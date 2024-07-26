@@ -95,7 +95,6 @@
 </head>
 <body>
     <nav class="navbar">
-        <!-- LOGO -->
         <div class="logo">EDITPIC.io</div>
     </nav>
     <div class="container">
@@ -106,7 +105,6 @@
         </form>
         {% if img_path %}
             <img src="{{ url_for('static', filename='uploads/' ~ img_path.split('/')[-1]) }}" alt="Image">
-            <!-- Edit Functions Container -->
             <div class="edit-functions">
                 <form method="POST" action="{{ url_for('brightness') }}">
                     <div class="form-group">
